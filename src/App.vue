@@ -1,8 +1,8 @@
 <template>
-  <ion-app>
+  <ion-app :style="backgroundStyle">
     <ion-split-pane content-id="main-content" v-if="isLogined">
       <ion-menu content-id="main-content" type="overlay">
-        <ion-content class="background-image">
+        <ion-content>
           <ion-list id="inbox-list">
             <ion-list-header>Inbox</ion-list-header>
             <ion-note>hi@ionicframework.com</ion-note>
@@ -18,7 +18,7 @@
       </ion-menu>
       <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
-    <ion-content v-else class="background-image">
+    <ion-content v-else>
       <Login />
     </ion-content>
   </ion-app>
@@ -39,7 +39,7 @@ import {
   IonRouterOutlet,
   IonSplitPane,
 } from '@ionic/vue';
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import {
   archiveOutline,
   archiveSharp,
@@ -54,15 +54,11 @@ import {
   warningOutline,
   warningSharp,
 } from 'ionicons/icons';
-import { onMounted } from 'vue';
 import Login from './components/Login.vue';
 
-let isLogined = ref(false);
-
-onMounted(() => {
-  console.log('Hello World');
-});
-
+const isLogined = ref(false);
+import imagePath from './images/background.jpg'; // Replace with your image's path
+const backgroundStyle = computed(() => `background-image: url(${imagePath});`);
 const selectedIndex = ref(0);
 const appPages = [
   {
@@ -102,15 +98,18 @@ const appPages = [
     mdIcon: warningSharp,
   },
 ];
-const path = window.location.pathname.split('folder/')[1];
-if (path !== undefined) {
-  selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
-}
+
+onMounted(() => {
+  console.log('Hello World');
+  const path = window.location.pathname.split('folder/')[1];
+  if (path !== undefined) {
+    selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
+  }
+});
+
 </script>
 <style>
-.background-image {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+ion-content {
+  --background: transparent; /* Makes the ion-content background transparent */
 }
 </style>
