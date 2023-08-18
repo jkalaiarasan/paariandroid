@@ -24,7 +24,7 @@
         <div class="forgot-pin-container">
           <a href="#" class="forgot-pin">Forgot PIN?</a>
         </div>
-        <ion-button expand="block" @click="login" class="login-button">Login</ion-button>
+        <ion-button expand="block" @click="getUserInfo" class="login-button">Login</ion-button>
         <div class="register-container">
           <span>Not a member yet? </span>
           <a href="" class="register-link">Register Now</a>
@@ -39,6 +39,9 @@
         </div>
       </div>
     </ion-content>
+    <div v-if="showSpinner" class="spinner-container">
+      <ion-spinner name="lines-small"></ion-spinner>
+    </div>
   </ion-page>
 </template>
 
@@ -54,7 +57,9 @@ import {
   IonIcon,
   IonInput,
   IonButton,
+  IonSpinner,
 } from '@ionic/vue';
+import { toastController } from '@ionic/vue';
 import axios from 'axios';
 
 export default {
@@ -68,39 +73,71 @@ export default {
     IonIcon,
     IonInput,
     IonButton,
+    IonSpinner,
+  },
+  data() {
+    return {
+      username: '',
+      pin: '',
+      showSpinner: false,
+    };
   },
   methods: {
-    async getToken() {
-      console.log('gettoken');
-      const url = 'https://login.salesforce.com/services/oauth2/token';
-      const params = new URLSearchParams();
-      params.append('grant_type', 'password');
-      params.append('client_id', '3MVG9n_HvETGhr3BXtcrwa5G2PBgLFCCJrM0JOXZamLvLVqlknJkcwjJ1zWqq38CJNuhsATh1zuTWeaiLLwIZ');
-      params.append('client_secret', '4D4C46A0989975C3002CCD90B4CE4A8619D25401E90AFD93B0977A24A22CA914');
-      params.append('username', 'jkalaiarasan@account.com');
-      params.append('password', 'Kalai@1997w3ozb4LZc65eydpChToEV8oN6'); // Append the security token if needed
-      console.log('77');
+    async getUserInfo() {
+      this.showSpinner = true;
+      const url = 'https://paaraiserver.vercel.app/getUserInfo';  //http://localhost:3000 // https://paaraiserver.vercel.app
+      const data = {
+        userName: this.username,
+        pin: this.pin
+      };
       try {
-        const response = await axios.post(url, params, {
+        const response = await axios.post(url, data, {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
           },
         });
-        console.log('response ', JSON.parse(JSON.stringify(response)));
-        const accessToken = response.data.access_token;
-        console.log('Access token:', accessToken);
-
-        // You can store the access token or use it as needed
+        const responseData = response.data;
+        this.showSpinner = false;
+        if(responseData?.records?.length > 0){
+          let name = responseData?.records[0]?.Name__c;
+          const toast = await toastController.create({
+            message: 'Welcome ' + name,
+            duration: 2000,
+            position: 'top', // Position at the top
+            color: 'success',
+           });
+           await toast.present();
+        } else {
+          const toast = await toastController.create({
+            message: 'No user found',
+            duration: 2000,
+            position: 'top', // Position at the top
+            color: 'danger',
+           });
+           await toast.present();
+        }
       } catch (error) {
-        console.log('error ', error);
-        console.error('Authentication failed:', error.response ? error.response.data : error.message);
+        this.showSpinner = false;
+        const toast = await toastController.create({
+            message: 'Error',
+            duration: 2000,
+            position: 'top', // Position at the top
+            color: 'danger',
+           });
+        await toast.present();
       }
     },
-  },
-  mounted() {
-    console.log('mounted');
-    this.getToken(); // Call the getToken method when the component is mounted
-  },
+  }
+    /*
+    showToast: async function(message, variant) {
+    const toast = await toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'top', // Position at the top
+      color: variant,
+    });
+    await toast.present();
+    },*/
 };
 </script>
 
@@ -139,6 +176,19 @@ ion-toolbar {
     font-size: 15px; /* Adjust as needed */
     color: #808080; /* Gray color */
     margin-top: 1px;
+  }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* This will position the spinner above everything else on the page */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(31, 27, 27, 0.8); /* This adds a semi-transparent background */
+    z-index: 1000; /* This ensures the spinner is above everything else on the page */
   }
 
 .login-box {
