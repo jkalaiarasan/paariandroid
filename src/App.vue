@@ -1,25 +1,10 @@
 <template>
   <ion-app :style="backgroundStyle">
-    <ion-split-pane content-id="main-content" v-if="isLogined">
-      <ion-menu content-id="main-content" type="overlay">
-        <ion-content>
-          <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
-
-            <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
-              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" :detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
-                <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
-          </ion-list>
-        </ion-content>
-      </ion-menu>
-      <ion-router-outlet id="main-content"></ion-router-outlet>
-    </ion-split-pane>
+      <ion-content v-if="isLogined">
+        <Profile />
+      </ion-content>
     <ion-content v-else>
-      <Login />
+      <Login @childEvent="handleChildEvent" />
     </ion-content>
   </ion-app>
 </template>
@@ -55,9 +40,10 @@ import {
   warningSharp,
 } from 'ionicons/icons';
 import Login from './components/Login.vue';
+import Profile from './components/Profile.vue';
 
-const isLogined = ref(false);
-import imagePath from './images/background.jpg'; // Replace with your image's path
+const isLogined = ref(true);
+import imagePath from './images/background.jpg';
 const backgroundStyle = computed(() => `background-image: url(${imagePath});`);
 const selectedIndex = ref(0);
 const appPages = [
@@ -99,14 +85,20 @@ const appPages = [
   },
 ];
 
+const handleChildEvent = (result) => {
+  console.log('data ', result);
+  isLogined.value = true;
+  console.log('105');
+};
+
 onMounted(() => {
   const path = window.location.pathname.split('folder/')[1];
   if (path !== undefined) {
     selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
   }
 });
-
 </script>
+
 <style>
 ion-content {
   --background: transparent; /* Makes the ion-content background transparent */

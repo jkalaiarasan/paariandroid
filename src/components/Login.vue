@@ -13,21 +13,23 @@
         <img class="logo" src="../images/Logo.png" alt="Paarai Boys" /> <!-- Company Logo -->
       </div>
       <div class="login-box">
-        <ion-item class="custom-input">
-          <ion-icon name="person" slot="start"></ion-icon>
-          <ion-input type="text" placeholder="Username" v-model="username"></ion-input>
-        </ion-item>
-        <ion-item class="custom-input">
-          <ion-icon name="lock-closed" slot="start"></ion-icon>
-          <ion-input type="password" placeholder="PIN" v-model="pin" maxlength="6"></ion-input>
-        </ion-item>
-        <div class="forgot-pin-container">
-          <a href="#" class="forgot-pin">Forgot PIN?</a>
-        </div>
-        <ion-button expand="block" @click="getUserInfo" class="login-button">Login</ion-button>
+        <form @submit="getUserInfo">
+          <ion-item class="custom-input">
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-input type="text" required placeholder="Username" v-model="username"></ion-input>
+          </ion-item>
+          <ion-item class="custom-input">
+            <ion-icon name="lock-closed" slot="start"></ion-icon>
+            <ion-input type="password" required placeholder="PIN" v-model="pin" maxlength="6" minlength="4"></ion-input>
+          </ion-item>
+          <div class="forgot-pin-container">
+            <a href="#" class="forgot-pin">Forgot PIN?</a>
+          </div>
+          <ion-button type="submit" expand="block" class="login-button">Login</ion-button>
+        </form>
         <div class="register-container">
           <span>Not a member yet? </span>
-          <a href="" class="register-link">Register Now</a>
+          <a href="" class="register-link">Contact Now</a>
         </div>
         <div class="icons-container">
           <a href="#" target="_blank">
@@ -83,11 +85,21 @@ export default {
     };
   },
   methods: {
-    async getUserInfo() {
+    async displayToast(message, color) {
+      const toast = await toastController.create({
+        message: message,
+        duration: 2000,
+        position: 'top',
+        color: color,
+      });
+      await toast.present();
+    },
+    async getUserInfo(event) {
+      event.preventDefault();
       this.showSpinner = true;
-      const url = 'https://paaraiserver.vercel.app/getUserInfo';  //http://localhost:3000 // https://paaraiserver.vercel.app
+      const url = 'http://localhost:3000/getUserInfo';
       const data = {
-        userName: this.username,
+        userName: this.username.toLowerCase(),
         pin: this.pin
       };
       try {
@@ -98,46 +110,24 @@ export default {
         });
         const responseData = response.data;
         this.showSpinner = false;
-        if(responseData?.records?.length > 0){
+        if (responseData?.records?.length > 0) {
           let name = responseData?.records[0]?.Name__c;
-          const toast = await toastController.create({
-            message: 'Welcome ' + name,
-            duration: 2000,
-            position: 'top', // Position at the top
-            color: 'success',
-           });
-           await toast.present();
+          let pin = responseData?.records[0]?.PIN__c;
+          if(pin == this.pin){
+            this.displayToast('Welcome ' + name, 'success');
+            this.$emit('childEvent', responseData?.records[0]);
+          } else {
+            this.displayToast('Incorrect pin', 'danger');
+          }
         } else {
-          const toast = await toastController.create({
-            message: 'No user found',
-            duration: 2000,
-            position: 'top', // Position at the top
-            color: 'danger',
-           });
-           await toast.present();
+          this.displayToast('No user found', 'danger');
         }
       } catch (error) {
         this.showSpinner = false;
-        const toast = await toastController.create({
-            message: 'Error',
-            duration: 2000,
-            position: 'top', // Position at the top
-            color: 'danger',
-           });
-        await toast.present();
+        this.displayToast('Error', 'danger');
       }
     },
-  }
-    /*
-    showToast: async function(message, variant) {
-    const toast = await toastController.create({
-      message: message,
-      duration: 2000,
-      position: 'top', // Position at the top
-      color: variant,
-    });
-    await toast.present();
-    },*/
+  },
 };
 </script>
 
