@@ -13,7 +13,7 @@
         <img class="logo" src="../images/Logo.png" alt="Paarai Boys" /> <!-- Company Logo -->
       </div>
       <div class="login-box">
-        <form @submit="getUserInfo">
+        <form @submit="getToken">
           <ion-item class="custom-input">
             <ion-icon name="person" slot="start"></ion-icon>
             <ion-input type="text" required placeholder="Username" v-model="username"></ion-input>
@@ -94,10 +94,10 @@ export default {
       });
       await toast.present();
     },
-    async getUserInfo(event) {
+    async getToken(event) {
       event.preventDefault();
       this.showSpinner = true;
-      const url = 'http://localhost:3000/getUserInfo';
+      const url = 'https://paaraiserver.vercel.app/getToken';
       const data = {
         userName: this.username.toLowerCase(),
         pin: this.pin
@@ -110,17 +110,12 @@ export default {
         });
         const responseData = response.data;
         this.showSpinner = false;
-        if (responseData?.records?.length > 0) {
-          let name = responseData?.records[0]?.Name__c;
-          let pin = responseData?.records[0]?.PIN__c;
-          if(pin == this.pin){
-            this.displayToast('Welcome ' + name, 'success');
-            this.$emit('childEvent', responseData?.records[0]);
-          } else {
-            this.displayToast('Incorrect pin', 'danger');
-          }
+        if (!responseData.isError) {
+          this.displayToast('Welcome ' + responseData.Name, 'success');
+          localStorage.setItem('PAARAI', responseData.token);
+          this.$emit('childEvent', responseData.token);
         } else {
-          this.displayToast('No user found', 'danger');
+          this.displayToast(responseData.message, 'danger');
         }
       } catch (error) {
         this.showSpinner = false;

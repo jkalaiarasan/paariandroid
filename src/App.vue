@@ -1,7 +1,7 @@
 <template>
   <ion-app :style="backgroundStyle">
       <ion-content v-if="isLogined">
-        <Profile />
+        <MainPage @childEvent="handleMainPageEvent"/>
       </ion-content>
     <ion-content v-else>
       <Login @childEvent="handleChildEvent" />
@@ -40,12 +40,11 @@ import {
   warningSharp,
 } from 'ionicons/icons';
 import Login from './components/Login.vue';
-import Profile from './components/Profile.vue';
+import MainPage from './components/MainPage.vue';
 
-const isLogined = ref(true);
+const isLogined = ref(false);
 import imagePath from './images/background.jpg';
 const backgroundStyle = computed(() => `background-image: url(${imagePath});`);
-const selectedIndex = ref(0);
 const appPages = [
   {
     title: 'Inbox',
@@ -86,16 +85,29 @@ const appPages = [
 ];
 
 const handleChildEvent = (result) => {
-  console.log('data ', result);
+  console.log('88');
+  
   isLogined.value = true;
-  console.log('105');
 };
 
+const handleMainPageEvent = (result) => {
+  console.log('result ', result);
+  isLogined.value = false;
+}
+
 onMounted(() => {
-  const path = window.location.pathname.split('folder/')[1];
-  if (path !== undefined) {
-    selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
+  console.log('99', localStorage.getItem('PAARAI'));
+  console.log('100 ', isLogined.value);
+  if(localStorage.getItem('PAARAI')){
+    console.log('102');
+    
+    isLogined.value = true;
+  } else {
+    console.log('106');
+    isLogined.value = false;
   }
+  console.log('109 ', isLogined.value);
+  
 });
 </script>
 
