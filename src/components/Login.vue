@@ -29,7 +29,7 @@
         </form>
         <div class="register-container">
           <span>Not a member yet? </span>
-          <a href="" class="register-link">Contact Now</a>
+          <a target="_blank" href="https://account-dev-ed.develop.my.site.com/paaraiboys/s/" class="register-link">Register Now</a>
         </div>
         <div class="icons-container">
           <a href="#" target="_blank">

@@ -24,6 +24,8 @@
       <ion-content id="main-content">
         <ChangePin v-if="isChangePin" />
         <Profile :memberData="memberDetail" v-if="isProfile"/>
+        <Weather v-if="isWeather"/>
+        <Members v-if="isMember"/>
       </ion-content>
     </ion-page>
     <div v-if="showSpinner" class="spinner-container">
@@ -38,6 +40,8 @@
   } from '@ionic/vue';
     import ChangePin from './ChangePin.vue';
     import Profile from './Profile.vue';
+    import Members from './Members.vue';
+    import Weather from './Weather.vue';
     import { toastController } from '@ionic/vue';
     export default {
         name: "MenuLayout",
@@ -45,7 +49,7 @@
           menuOptions: Array,
         },
         components: {
-            ChangePin,
+            ChangePin,Weather,Members,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -61,6 +65,8 @@
             isProfile: true,
             showSpinner: false,
             memberDetail: Object,
+            isWeather: false,
+            isMember: false,
             menuItems: [
                 { id: 1, label: "சுயவிவரம்", value: "Profile"},
                 { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
@@ -85,6 +91,8 @@
                 this.pageTitle = menuItem.label;
                 this.isChangePin = menuItem.value === "ChangePin";
                 this.isProfile = menuItem.value === "Profile";
+                this.isWeather = menuItem.value === "Weather";
+                this.isMember = menuItem.value === "Member";
                 if(menuItem.value === "Logout"){
                   localStorage.setItem('PAARAI', '');
                   this.$emit('childEvent', 'logout');

@@ -1,5 +1,7 @@
 {
   "name": "Paarai",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "vue-vite"
 }
