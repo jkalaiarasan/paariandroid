@@ -26,6 +26,7 @@
         <Profile :memberData="memberDetail" v-if="isProfile"/>
         <Weather v-if="isWeather"/>
         <Members v-if="isMember"/>
+        <Events v-if="isEvent"/>
       </ion-content>
     </ion-page>
     <div v-if="showSpinner" class="spinner-container">
@@ -40,6 +41,7 @@
   } from '@ionic/vue';
     import ChangePin from './ChangePin.vue';
     import Profile from './Profile.vue';
+    import Events from './Events.vue';
     import Members from './Members.vue';
     import Weather from './Weather.vue';
     import { toastController } from '@ionic/vue';
@@ -49,7 +51,7 @@
           menuOptions: Array,
         },
         components: {
-            ChangePin,Weather,Members,
+            ChangePin,Weather,Members,Events,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -67,6 +69,7 @@
             memberDetail: Object,
             isWeather: false,
             isMember: false,
+            isEvent: false,
             menuItems: [
                 { id: 1, label: "சுயவிவரம்", value: "Profile"},
                 { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
@@ -93,6 +96,7 @@
                 this.isProfile = menuItem.value === "Profile";
                 this.isWeather = menuItem.value === "Weather";
                 this.isMember = menuItem.value === "Member";
+                this.isEvent = menuItem.value === "Event";
                 if(menuItem.value === "Logout"){
                   localStorage.setItem('PAARAI', '');
                   this.$emit('childEvent', 'logout');
@@ -101,25 +105,20 @@
                 menu?.close();
             },
             async makeServerCall(){
-              console.log('96');
               this.showSpinner = true;
               const url = 'https://paaraiserver.vercel.app/getMemberInfo';
               const data = {
                 token: localStorage.getItem('PAARAI')
               };
               try {
-                console.log('103');
                 const response = await axios.post(url, data, {
                   headers: {
                     'Content-Type': 'application/json',
                   },
                 });
-                console.log('109');
                 this.memberDetail = response?.data?.data;
-                console.log('responseData ', JSON.parse(JSON.stringify(this.memberDetail)));
                 this.showSpinner = false;
               } catch (error) {
-                console.log('error');
                 this.showSpinner = false;
                 localStorage.setItem('PAARAI', '');
                 this.$emit('childEvent', 'logout');

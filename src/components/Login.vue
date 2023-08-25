@@ -20,7 +20,16 @@
           </ion-item>
           <ion-item class="custom-input">
             <ion-icon name="lock-closed" slot="start"></ion-icon>
-            <ion-input type="password" required placeholder="PIN" v-model="pin" maxlength="6" minlength="4"></ion-input>
+            <ion-input
+              type="password"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              required
+              placeholder="PIN"
+              v-model="pin"
+              maxlength="6"
+              minlength="4"
+            ></ion-input>
           </ion-item>
           <div class="forgot-pin-container">
             <a href="#" class="forgot-pin">Forgot PIN?</a>
