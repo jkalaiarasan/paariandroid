@@ -16,6 +16,10 @@
   </template>
   
   <style scoped>
+  ion-content {
+    --ion-text-color: #607D8B;
+  }
+
   .accordion {
     border: 1px solid #ccc;
     margin: 5px;
@@ -86,7 +90,7 @@
         async getEventList() {
             console.log('91');
             this.showSpinner = true;
-            const url = 'http://localhost:3000/getEventList';
+            const url = 'https://paaraiserver.vercel.app/getEventList';
             const data = {
                 token: localStorage.getItem('PAARAI'),
             };
@@ -105,10 +109,10 @@
                 });
                 });
                 this.memberDetail = response?.data?.data;
-                this.showSpinner = false;
+                //this.showSpinner = false;
             } catch (error) {
                 console.log('error ', error);
-                this.showSpinner = false;
+                //this.showSpinner = false;
                 this.displayToast('Error', 'danger');
             }
         },
