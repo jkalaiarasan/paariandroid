@@ -6,7 +6,7 @@
       <div class="profile-details">
         <div class="detail">
           <h2 class="detail-label">பெயர்</h2>
-          <div class="detail-value">{{ memberData.Name__c }}</div>
+          <div class="detail-value">{{ memberData.Name }}</div>
         </div>
         <div class="detail">
           <h2 class="detail-label">பதிவு எண்</h2>

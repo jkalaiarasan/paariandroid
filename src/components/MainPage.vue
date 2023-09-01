@@ -57,7 +57,6 @@
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
         },
         mounted() {
-          console.log('54');
           this.makeServerCall();
         },
         data() {

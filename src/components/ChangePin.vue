@@ -55,7 +55,6 @@
   
   <style scoped>
   .change-pin-content {
-    background-color: #222222;
     padding: 0;
     display: flex;
     justify-content: center;
@@ -68,7 +67,6 @@
     border-radius: 10px;
     animation: fade-in 0.5s ease;
     width: 100%;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   }
   
   .form-list {
@@ -84,7 +82,6 @@
     font-size: 18px;
     display: block;
     position: relative;
-    color: #ffffff;
     animation: label-float 0.3s ease;
   }
   
@@ -94,7 +91,7 @@
     font-size: 16px;
     width: 100%;
     border-radius: 5px;
-    color: #333333;
+    
     animation: input-slide-up 0.5s ease;
   }
   
@@ -102,35 +99,6 @@
     margin-top: 20px;
     font-size: 18px;
     animation: fade-in 0.5s ease;
-  }
-  
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes label-float {
-    from {
-      transform: translateY(15px);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes input-slide-up {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
   }
   .form-label{
     margin-bottom: 15px;

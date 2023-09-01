@@ -28,7 +28,7 @@
 
 <script>
 import axios from 'axios';
-
+import { toastController } from '@ionic/vue';
 import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonImg, IonLabel, IonSpinner } from '@ionic/vue';
 
 export default {
@@ -80,9 +80,9 @@ export default {
           },
         });
         response?.data?.data.forEach(element => {
-          let userName = element.Username__c ? element.Username__c : element.Name__c;
+          let userName = element.Username__c ? element.Username__c : element.Name;
           this.users.push({
-            name: `${element.Name__c} (${element.Paarai_Id__c})`,
+            name: `${element.Name} (${element.Paarai_Id__c})`,
             username: '@' + userName,
             profileImage: "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png",
             bio: element.Work__c,

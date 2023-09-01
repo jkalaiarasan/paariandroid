@@ -85,29 +85,19 @@ const appPages = [
 ];
 
 const handleChildEvent = (result) => {
-  console.log('88');
-  
   isLogined.value = true;
 };
 
 const handleMainPageEvent = (result) => {
-  console.log('result ', result);
   isLogined.value = false;
 }
 
 onMounted(() => {
-  console.log('99', localStorage.getItem('PAARAI'));
-  console.log('100 ', isLogined.value);
   if(localStorage.getItem('PAARAI')){
-    console.log('102');
-    
     isLogined.value = true;
   } else {
-    console.log('106');
     isLogined.value = false;
-  }
-  console.log('109 ', isLogined.value);
-  
+  }  
 });
 </script>
 

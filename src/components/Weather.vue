@@ -61,11 +61,9 @@ export default {
             'Content-Type': 'application/json',
           },
         });
-        console.log(response.data)
         let weatherData = response.data.data;
         weatherData.iconURL = 'https:' + weatherData?.current?.condition?.icon;
         this.weatherData = weatherData;
-        console.log(JSON.parse(JSON.stringify(this.weatherData)))
         this.showSpinner = false;
       } catch (error) {
         this.showSpinner = false;
@@ -100,6 +98,7 @@ ion-content {
 .location {
   align-items: center;
   font-size: 18px;
+  color: teal;
 }
 
 .loc{
