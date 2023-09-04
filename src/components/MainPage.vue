@@ -23,7 +23,7 @@
       </ion-menu>
       <ion-content id="main-content">
         <ChangePin v-if="isChangePin" />
-        <Profile :memberData="memberDetail" v-if="isProfile"/>
+        <Profile v-if="isProfile"/>
         <Weather v-if="isWeather"/>
         <Members v-if="isMember"/>
         <Events v-if="isEvent"/>
@@ -35,7 +35,6 @@
   </template>
   
   <script>
-  import axios from 'axios';
   import {
     IonSpinner,IonPage,IonMenu, IonContent,IonList,IonMenuButton,IonButtons,IonTitle, IonToolbar,IonHeader,IonLabel, IonItem,
   } from '@ionic/vue';
@@ -56,9 +55,6 @@
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
         },
-        mounted() {
-          this.makeServerCall();
-        },
         data() {
             return {
             pageTitle: "சுயவிவரம்",
@@ -75,7 +71,8 @@
                 { id: 3, label: "PIN ஐ மாற்று", value: "ChangePin"},
                 { id: 4, label: "நிகழ்வுகள்", value: "Event"},
                 { id: 5, label: "வானிலை", value: "Weather"},
-                { id: 6, label: "வெளியேறு", value: "Logout"},
+                { id: 6, label: "செய்திகள்", value: "News"},
+                { id: 7, label: "வெளியேறு", value: "Logout"},
             ]
             };
         },
@@ -103,27 +100,6 @@
                 const menu = document.querySelector('ion-menu');
                 menu?.close();
             },
-            async makeServerCall(){
-              this.showSpinner = true;
-              const url = 'https://paaraiserver.vercel.app/getMemberInfo';
-              const data = {
-                token: localStorage.getItem('PAARAI')
-              };
-              try {
-                const response = await axios.post(url, data, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                });
-                this.memberDetail = response?.data?.data;
-                this.showSpinner = false;
-              } catch (error) {
-                this.showSpinner = false;
-                localStorage.setItem('PAARAI', '');
-                this.$emit('childEvent', 'logout');
-                this.displayToast('Error', 'danger');
-              }
-            }
           }
     };
   </script>

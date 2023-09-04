@@ -40,12 +40,12 @@
           <span>Not a member yet? </span>
           <a target="_blank" href="https://account-dev-ed.develop.my.site.com/paaraiboys/s/" class="register-link">Register Now</a>
         </div>
-        <div class="icons-container">
-          <a href="#" target="_blank">
-            <ion-icon name="logo-whatsapp"></ion-icon> <!-- WhatsApp Icon -->
+        <div class="icons-container" style="text-align: center;">
+          <a href="https://chat.whatsapp.com/EDIKebHp12O9Bb4zf6G7Yc" target="_blank">
+            <i class="bi bi-whatsapp"></i>
           </a>
-          <a href="#" target="_blank">
-            <ion-icon name="logo-instagram"></ion-icon> <!-- Instagram Icon -->
+          <a href="https://www.instagram.com/direct/t/6419140178167487/" target="_blank">
+            <i class="bi bi-instagram"></i>
           </a>
         </div>
       </div>
@@ -136,6 +136,11 @@ export default {
 </script>
 
 <style scoped>
+i{
+  color: purple;
+  font-size: 32px;
+  margin-right: 10px;
+}
 ion-toolbar {
   --background: transparent;
   color: white;

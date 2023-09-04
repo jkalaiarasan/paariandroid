@@ -1,5 +1,5 @@
 {
-  "name": "Paarai",
+  "name": "Paarai Boys",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -18,11 +18,11 @@
     "@capacitor/haptics": "5.0.6",
     "@capacitor/keyboard": "5.0.6",
     "@capacitor/status-bar": "5.0.6",
-    "@ionic/vue": "^7.0.0",
+    "@ionic/vue": "^7.3.2",
     "@ionic/vue-router": "^7.0.0",
     "axios": "^1.4.0",
+    "bootstrap-icons": "^1.10.5",
     "http-proxy-middleware": "^2.0.6",
-    "ionicons": "^7.1.2",
     "vite-plugin-http2-proxy": "^0.4.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"

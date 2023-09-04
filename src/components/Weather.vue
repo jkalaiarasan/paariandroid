@@ -16,12 +16,31 @@
         <div class="temperature">{{ weatherData.current.temp_c }}°C</div>
         <div class="condition">{{ weatherData.current.condition.text }}</div>
         <img class="icon" :src="weatherData.iconURL" alt="Weather Icon">
+        <div class="sunrise-sunset">
+            <div class="sunrise">
+              <i class="bi bi-sunrise"></i>
+              சூரிய உதயம்: {{ weatherData.forecast.forecastday[0].astro.sunrise }}
+            </div>
+            <div class="sunset">
+              <i class="bi bi-sunset"></i>
+              சூரிய அஸ்தமனம்: {{ weatherData.forecast.forecastday[0].astro.sunset }}
+            </div>
+            <div class="moonrise">
+              <i class="bi bi-cloud-moon"></i>
+              சந்திர உதயம்: {{weatherData.forecast.forecastday[0].astro.moonrise }}
+            </div>
+            <div class="moonset">
+              <i class="bi bi-cloud-moon-fill"></i>
+              சந்திர அஸ்தமனம்: {{ weatherData.forecast.forecastday[0].astro.moonset }}
+            </div>
+        </div>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import { IonPage, IonContent, IonIcon, IonSpinner } from '@ionic/vue';
 import { toastController } from '@ionic/vue';
@@ -93,6 +112,7 @@ ion-content {
   background-color: black;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  color: grey;
 }
 
 .location {
@@ -124,7 +144,6 @@ ion-content {
 .location-region,
 .location-country {
   font-size: 14px;
-  color: #888;
 }
 
 .temperature {
@@ -135,7 +154,6 @@ ion-content {
 
 .condition {
   font-size: 18px;
-  color: #555;
 }
 
 .icon {

@@ -1,6 +1,12 @@
 <template>
-    <div class="profile">
-      <div class="profile-header">
+    <div v-if="showSpinner" class="spinner-container">
+      <ion-spinner name="lines-small"></ion-spinner>
+    </div>
+    <div v-else class="profile">
+      <div class="profile-header" v-if="memberData.havePhoto">
+        <img class="profile-picture" :src="memberData.Photo_URL__c" alt="Profile Picture" />
+      </div>
+      <div class="profile-header" v-else>
         <img class="profile-picture" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyjqSxk-RexzyuP1TktCvHsA4XJMrRF7mPWeSs_No_IZArOpDg2P_4psKYSzOBBXyKhXF-kt-1r0pTxTTTtUp1IHDfmsL8gTYC2lpVPt6rC0mKI0h7xwOjxKxm2ha6STRKyE47PeDSWuoNQ_e_FQeM9ybAd4WHNnxL_wWC-G6a5zDj2KdLMoxsjZ63DSs/w552-h320/main.png" alt="Profile Picture" />
       </div>
       <div class="profile-details">
@@ -38,19 +44,19 @@
   </template>
   
   <script>
+  import axios from 'axios';
   import { toastController } from '@ionic/vue';
+  import { IonSpinner } from '@ionic/vue';
   export default {
-    props: {
-      memberData: Object,
-    },
+    components: { IonSpinner },
     data() {
       return {
-        profileData: {
-          name: "John Doe",
-          location: "New York City",
-          email: "johndoe@example.com",
-        },
-      };
+        showSpinner: true,
+        memberData: {},
+      }
+    },
+    mounted(){
+        this.getInfo();
     },
     methods:  {
       async updateProfile(){
@@ -61,6 +67,36 @@
           color: 'success',
         });
         await toast.present();
+      },
+
+      async getInfo(){
+        console.log('79');
+        const url = 'https://paaraiserver.vercel.app/getMemberInfo';
+        //const url = 'http://localhost:3000/getMemberInfo';
+        const data = {
+          token: localStorage.getItem('PAARAI')
+        };
+        try {
+          console.log('86');
+          const response = await axios.post(url, data, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          console.log('kalai ', response?.data);
+          this.memberData = response?.data?.data;
+          this.memberData.havePhoto = false;
+          if(this.memberData.Photo_URL__c){
+            this.memberData.havePhoto = true;
+          }
+          console.log('this.memberDetail ', JSON.stringify(this.memberData));
+          this.showSpinner = false;
+          console.log('96');
+        } catch (error) {
+          this.showSpinner = false;
+          localStorage.setItem('PAARAI', '');
+          console.log('100');
+        }
       }
     }
   };
