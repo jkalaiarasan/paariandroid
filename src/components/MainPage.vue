@@ -27,6 +27,7 @@
         <Weather v-if="isWeather"/>
         <Members v-if="isMember"/>
         <Events v-if="isEvent"/>
+        <News v-if="isNews"/>
       </ion-content>
     </ion-page>
     <div v-if="showSpinner" class="spinner-container">
@@ -43,6 +44,7 @@
     import Events from './Events.vue';
     import Members from './Members.vue';
     import Weather from './Weather.vue';
+    import News from './News.vue';
     import { toastController } from '@ionic/vue';
     export default {
         name: "MenuLayout",
@@ -50,7 +52,7 @@
           menuOptions: Array,
         },
         components: {
-            ChangePin,Weather,Members,Events,
+            ChangePin,Weather,Members,Events,News,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -65,6 +67,7 @@
             isWeather: false,
             isMember: false,
             isEvent: false,
+            isNews: false,
             menuItems: [
                 { id: 1, label: "சுயவிவரம்", value: "Profile"},
                 { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
@@ -93,6 +96,7 @@
                 this.isWeather = menuItem.value === "Weather";
                 this.isMember = menuItem.value === "Member";
                 this.isEvent = menuItem.value === "Event";
+                this.isNews = menuItem.value === "News";
                 if(menuItem.value === "Logout"){
                   localStorage.setItem('PAARAI', '');
                   this.$emit('childEvent', 'logout');
