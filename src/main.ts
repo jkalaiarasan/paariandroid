@@ -19,6 +19,7 @@ import '@ionic/vue/css/text-alignment.css';
 import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
+import { Storage } from '@ionic/storage';
 
 /* Theme variables */
 import './theme/variables.css';
@@ -27,6 +28,10 @@ const app = createApp(App)
   .use(IonicVue)
   .use(router);
   
+const storage = new Storage();
+storage.create();
+app.config.globalProperties.$storage = storage;
+
 router.isReady().then(() => {
   app.mount('#app');
 });

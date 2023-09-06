@@ -89,7 +89,7 @@
             });
             await toast.present();
           },
-            handleItemClick(menuItem) {
+            async handleItemClick(menuItem) {
                 this.pageTitle = menuItem.label;
                 this.isChangePin = menuItem.value === "ChangePin";
                 this.isProfile = menuItem.value === "Profile";
@@ -98,7 +98,7 @@
                 this.isEvent = menuItem.value === "Event";
                 this.isNews = menuItem.value === "News";
                 if(menuItem.value === "Logout"){
-                  localStorage.setItem('PAARAI', '');
+                  await this.$storage.set('PAARAI', '');
                   this.$emit('childEvent', 'logout');
                 }
                 const menu = document.querySelector('ion-menu');

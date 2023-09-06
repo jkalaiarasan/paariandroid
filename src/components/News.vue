@@ -84,7 +84,7 @@
         async displayToast(message, color) {
             const toast = await toastController.create({
                 message: message,
-                duration: 2000,
+                duration: 4000,
                 position: 'top',
                 color: color,
             });
@@ -98,7 +98,7 @@
             this.showSpinner = true;
             const url = 'https://paaraiserver.vercel.app/saveNews';
             const data = {
-                token: localStorage.getItem('PAARAI'),
+                token: await this.$storage.get('PAARAI'),
                 news: JSON.parse(JSON.stringify(this.newNews)),
             };
             try {
@@ -117,7 +117,7 @@
             this.showSpinner = true;
             const url = 'https://paaraiserver.vercel.app/getNews';
             const data = {
-                token: localStorage.getItem('PAARAI'),
+                token: await this.$storage.get('PAARAI'),
             };
             try {
                 const response = await axios.post(url, data, {
@@ -125,7 +125,6 @@
                     'Content-Type': 'application/json',
                 },
                 });
-                console.log('response?.data?.data ', JSON.stringify(response));
                 response?.data?.data.forEach(element => {
                     this.newsList.push({
                         title: element.Title__c,
@@ -138,7 +137,6 @@
             } catch (error) {
                 this.showSpinner = false;
             }
-            console.log("118");
         },
     },
   };

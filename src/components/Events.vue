@@ -37,15 +37,10 @@
       IonContent, IonIcon, IonSpinner
     },
     data() {
-        return {
-          events: [],
-          showSpinner: false,
-    };
-    },
-    data() {
       return {
         events: [],
         openIndex: null,
+        showSpinner: false,
       };
     },
     mounted() {
@@ -66,7 +61,7 @@
             this.showSpinner = true;
             const url =  'https://paaraiserver.vercel.app/getEventList' ; //'/getEventList';
             const data = {
-                token: localStorage.getItem('PAARAI'),
+                token: await this.$storage.get('PAARAI'),
             };
             try {
                 const response = await axios.post(url, data, {

@@ -1,5 +1,8 @@
 <template>
-  <ion-page>
+  <div v-if="fullSpinner" class="spinner-container">
+      <ion-spinner name="lines-small"></ion-spinner>
+    </div>
+  <ion-page v-else>
     <ion-header class="header">
     <ion-toolbar>
       <div class="center-align">
@@ -91,7 +94,11 @@ export default {
       username: '',
       pin: '',
       showSpinner: false,
+      fullSpinner: true,
     };
+  },
+  created() {
+      this.checkLogined();
   },
   methods: {
     async displayToast(message, color) {
@@ -121,7 +128,7 @@ export default {
         this.showSpinner = false;
         if (!responseData.isError) {
           this.displayToast('Welcome ' + responseData.Name, 'success');
-          localStorage.setItem('PAARAI', responseData.token);
+          await this.$storage.set('PAARAI', responseData.token);
           this.$emit('childEvent', responseData.token);
         } else {
           this.displayToast(responseData.message, 'danger');
@@ -131,6 +138,15 @@ export default {
         this.displayToast('Error', 'danger');
       }
     },
+    async checkLogined(){
+      const token = await this.$storage.get('PAARAI');
+      if(token) {
+        this.fullSpinner = false;
+        this.$emit('childEvent', token);
+      } else {
+        this.fullSpinner = false;
+      }
+    }
   },
 };
 </script>

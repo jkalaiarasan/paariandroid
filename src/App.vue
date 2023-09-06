@@ -29,12 +29,8 @@ const handleMainPageEvent = (result) => {
   isLogined.value = false;
 }
 
-onMounted(() => {
-  if(localStorage.getItem('PAARAI')){
-    isLogined.value = true;
-  } else {
-    isLogined.value = false;
-  }  
+onMounted(async() => {
+  isLogined.value = false;
 });
 </script>
 

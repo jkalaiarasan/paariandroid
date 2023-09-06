@@ -71,7 +71,7 @@ export default {
       this.showSpinner = true;
       const url = 'https://paaraiserver.vercel.app/getMemberList';
       const data = {
-        token: localStorage.getItem('PAARAI'),
+        token: await this.$storage.get('PAARAI'),
       };
       try {
         const response = await axios.post(url, data, {
