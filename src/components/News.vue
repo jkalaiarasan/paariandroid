@@ -1,6 +1,6 @@
 <template>
     <div v-if="showSpinner" class="spinner-container">
-        <ion-spinner name="lines-small"></ion-spinner>
+      <ion-spinner name="lines-small" style="width: 100px; height: 100px;"></ion-spinner>
     </div>
     <ion-page>
       <ion-content>

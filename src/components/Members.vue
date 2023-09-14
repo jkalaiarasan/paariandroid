@@ -5,15 +5,27 @@
         <ion-row>
           <ion-col v-for="(user, index) in users" :key="index" size="12">
             <ion-card>
-              <ion-card-header>
-                <ion-card-subtitle>{{ user.name }}</ion-card-subtitle>
-                <ion-card-title>{{ user.username }}</ion-card-title>
-              </ion-card-header>
               <ion-card-content>
-                <ion-avatar>
-                  <ion-img :src="user.profileImage" alt="User Avatar"></ion-img>
-                </ion-avatar>
-                <ion-label>{{ user.bio }}</ion-label>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="3">
+                      <div class="image-container">
+                        <ion-avatar>
+                          <ion-img :src="user.profileImage" alt="User Avatar"></ion-img>
+                        </ion-avatar>
+                      </div>
+                    </ion-col>
+                    <ion-col size="9">
+                      <ion-card-header>
+                        <ion-card-title style="font-weight: bold;">{{ user.name }}</ion-card-title>
+                        <ion-card-subtitle>{{ user.id }}</ion-card-subtitle>
+                        <ion-card-subtitle>{{ user.username }}</ion-card-subtitle>
+                        <ion-card-subtitle>{{ user.bio }}</ion-card-subtitle>
+                        <ion-card-subtitle>{{ user.location }}</ion-card-subtitle>
+                      </ion-card-header>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -22,7 +34,7 @@
     </ion-content>
   </ion-page>
   <div v-if="showSpinner" class="spinner-container">
-    <ion-spinner name="lines-small"></ion-spinner>
+    <ion-spinner name="lines-small" style="width: 100px; height: 100px;"></ion-spinner>
   </div>
 </template>
 
@@ -82,10 +94,12 @@ export default {
         response?.data?.data.forEach(element => {
           let userName = element.Username__c ? element.Username__c : element.Name;
           this.users.push({
-            name: `${element.Name} (${element.Paarai_Id__c})`,
+            name: element.Name,
+            id: element.Paarai_Id__c,
             username: '@' + userName,
             profileImage: "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png",
             bio: element.Work__c,
+            location: element.Location__c,
           });
         });
         this.memberDetail = response?.data?.data;
@@ -100,6 +114,13 @@ export default {
 </script>
 
 <style scoped>
+
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 .spinner-container {
   display: flex;
   justify-content: center;

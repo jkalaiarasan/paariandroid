@@ -1,6 +1,6 @@
 <template>
     <div v-if="showSpinner" class="spinner-container">
-      <ion-spinner name="lines-small"></ion-spinner>
+      <ion-spinner name="lines-small" style="width: 100px; height: 100px;"></ion-spinner>
     </div>
     <div v-else class="profile">
       <div class="profile-header">
@@ -67,18 +67,24 @@
       },
 
       async getInfo(){
+        console.log('70');
         const url = 'https://paaraiserver.vercel.app/getMemberInfo';
         //const url = 'http://localhost:3000/getMemberInfo';
+        console.log('73');
         const data = {
           token: await this.$storage.get('PAARAI'),
         };
+        console.log('77');
         try {
+          console.log('79');
           const response = await axios.post(url, data, {
             headers: {
               'Content-Type': 'application/json',
             },
           });
+          console.log('85 ', response);
           this.memberData = response?.data?.data;
+          console.log('this.memberData ', JSON.parse(JSON.stringify(this.memberData)));
           this.showSpinner = false;
         } catch (error) {
           this.showSpinner = false;
