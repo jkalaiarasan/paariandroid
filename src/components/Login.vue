@@ -6,14 +6,19 @@
     <ion-header class="header">
     <ion-toolbar>
       <div class="center-align">
-        <ion-title>Login to Your Account</ion-title>
-        <span><p>Connect with friends.</p></span>
+        <ion-title v-if="tile.tile.value == 'paarai'">Login to Your Account</ion-title>
+        <ion-title v-else>ப்ளூ மூன் சுய உதவி குழு</ion-title>
+        <span v-if="tile.tile.value == 'paarai'"><p>Connect with friends.</p></span>
+        <span v-else><p>(Universal Paarai Boys Undertaking)</p></span>
       </div>
     </ion-toolbar>
   </ion-header>
     <ion-content class="ion-padding" scroll-y="false">
-      <div class="logo-container">
-        <img class="logo" src="../images/Logo.png" alt="Paarai Boys" /> <!-- Company Logo -->
+      <div class="logo-container" v-if="tile.tile.value == 'paarai'">
+        <img class="logo" src="../images/Logo.png" alt="Paarai Boys" />
+      </div>
+      <div class="logo-container" v-else>
+        <img class="logo" src="../images/BlueMoon.png" alt="Paarai Boys" />
       </div>
       <div class="login-box">
         <form @submit="getToken">
@@ -39,11 +44,11 @@
           </div>
           <ion-button type="submit" expand="block" class="login-button">Login</ion-button>
         </form>
-        <div class="register-container">
+        <div class="register-container" v-if="tile.tile.value == 'paarai'">
           <span>Not a member yet? </span>
           <a target="_blank" href="https://account-dev-ed.develop.my.site.com/paaraiboys/s/" class="register-link">Register Now</a>
         </div>
-        <div class="icons-container" style="text-align: center;">
+        <div class="icons-container" style="text-align: center;" v-if="tile.tile.value == 'paarai'">
           <a href="https://chat.whatsapp.com/EDIKebHp12O9Bb4zf6G7Yc" target="_blank">
             <i class="bi bi-whatsapp"></i>
           </a>
@@ -51,6 +56,9 @@
             <i class="bi bi-instagram"></i>
           </a>
         </div>
+      </div>
+      <div style="text-align: center;">
+        <a href="#">முகப்பு பக்கம்</a>
       </div>
     </ion-content>
     <div v-if="showSpinner" class="spinner-container">
@@ -89,6 +97,9 @@ export default {
     IonButton,
     IonSpinner,
   },
+  props: {
+    tile: Object,
+  },
   data() {
     return {
       username: '',
@@ -116,7 +127,8 @@ export default {
       const url = 'https://paaraiserver.vercel.app/getToken';
       const data = {
         userName: this.username.toLowerCase(),
-        pin: this.pin
+        pin: this.pin,
+        isPaarai : this.tile.tile.value === 'paarai',
       };
       try {
         const response = await axios.post(url, data, {
@@ -128,7 +140,7 @@ export default {
         this.showSpinner = false;
         if (!responseData.isError) {
           this.displayToast('Welcome ' + responseData.Name, 'success');
-          await this.$storage.set('PAARAI', responseData.token);
+          this.tile.tile.value === 'paarai' ? await this.$storage.set('PAARAI', responseData.token) : await this.$storage.set('GROUP', responseData.token);
           this.$emit('childEvent', responseData.token);
         } else {
           this.displayToast(responseData.message, 'danger');
@@ -139,7 +151,7 @@ export default {
       }
     },
     async checkLogined(){
-      const token = await this.$storage.get('PAARAI');
+      const token = this.tile.tile.value === 'paarai' ? await this.$storage.get('PAARAI') : await this.$storage.get('GROUP');
       if(token) {
         this.fullSpinner = false;
         this.$emit('childEvent', token);

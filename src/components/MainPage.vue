@@ -72,10 +72,11 @@
                 { id: 1, label: "சுயவிவரம்", value: "Profile"},
                 { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
                 { id: 3, label: "PIN ஐ மாற்று", value: "ChangePin"},
-                { id: 4, label: "நிகழ்வுகள்", value: "Event"},
+                // { id: 4, label: "நிகழ்வுகள்", value: "Event"},
                 { id: 5, label: "வானிலை", value: "Weather"},
                 { id: 6, label: "செய்திகள்", value: "News"},
                 { id: 7, label: "வெளியேறு", value: "Logout"},
+                { id: 7, label: "<--- முகப்பு பக்கம்", value: "HomePage"},
             ]
             };
         },
@@ -97,6 +98,9 @@
                 this.isMember = menuItem.value === "Member";
                 this.isEvent = menuItem.value === "Event";
                 this.isNews = menuItem.value === "News";
+                if(menuItem.value === "HomePage"){
+                  window.location.reload();
+                }
                 if(menuItem.value === "Logout"){
                   await this.$storage.set('PAARAI', '');
                   this.$emit('childEvent', 'logout');
