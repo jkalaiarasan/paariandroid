@@ -40,6 +40,7 @@
 
 <script>
 import axios from 'axios';
+import { serverUrl } from '@/config.js';
 import { toastController } from '@ionic/vue';
 import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonImg, IonLabel, IonSpinner } from '@ionic/vue';
 
@@ -59,6 +60,9 @@ export default {
     IonImg,
     IonSpinner,
     IonLabel,
+  },
+  props: {
+      tile: Object,
   },
   data() {
     return {
@@ -81,9 +85,10 @@ export default {
     },
     async getMemberList() {
       this.showSpinner = true;
-      const url = 'https://paaraiserver.vercel.app/getMemberList';
+      const url = serverUrl + '/getMemberList';
       const data = {
-        token: await this.$storage.get('PAARAI'),
+        isPaarai:  this.tile.tile.value === 'paarai',
+        token: this.tile.tile.value === 'paarai' ? await this.$storage.get('PAARAI') : await this.$storage.get('GROUP'),
       };
       try {
         const response = await axios.post(url, data, {
@@ -95,8 +100,8 @@ export default {
           let userName = element.Username__c ? element.Username__c : element.Name;
           this.users.push({
             name: element.Name,
-            id: element.Paarai_Id__c,
-            username: '@' + userName,
+            id: this.tile.tile.value === 'paarai' ? element.Paarai_Id__c : element.Member_Id__c,
+            username: this.tile.tile.value === 'paarai' ? '@' + userName : element.Position__c,
             profileImage: "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png",
             bio: element.Work__c,
             location: element.Location__c,

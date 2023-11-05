@@ -46,6 +46,7 @@
   
   <script>
   import axios from 'axios';
+  import { serverUrl } from '@/config.js';
   import { toastController } from '@ionic/vue';
   import { IonPage, IonSpinner, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItemGroup, IonItemDivider, IonItem, IonLabel, IonButton, IonInput, IonTextarea } from "@ionic/vue";
 
@@ -96,7 +97,7 @@
         async addNews(event) {
             event.preventDefault();
             this.showSpinner = true;
-            const url = 'https://paaraiserver.vercel.app/saveNews';
+            const url = serverUrl + '/saveNews';
             const data = {
                 token: await this.$storage.get('PAARAI'),
                 news: JSON.parse(JSON.stringify(this.newNews)),
@@ -115,7 +116,7 @@
         },
         async getNews() {
             this.showSpinner = true;
-            const url = 'https://paaraiserver.vercel.app/getNews';
+            const url = serverUrl + '/getNews';
             const data = {
                 token: await this.$storage.get('PAARAI'),
             };

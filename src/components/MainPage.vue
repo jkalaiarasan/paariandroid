@@ -11,11 +11,14 @@
       
       <ion-menu content-id="main-content">
         <ion-content>
-          <div class="rounded-image-container">
-            <img class="rounded-image" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyjqSxk-RexzyuP1TktCvHsA4XJMrRF7mPWeSs_No_IZArOpDg2P_4psKYSzOBBXyKhXF-kt-1r0pTxTTTtUp1IHDfmsL8gTYC2lpVPt6rC0mKI0h7xwOjxKxm2ha6STRKyE47PeDSWuoNQ_e_FQeM9ybAd4WHNnxL_wWC-G6a5zDj2KdLMoxsjZ63DSs/w552-h320/main.png" alt="Rounded Image" />
+          <div class="rounded-image-container" v-if="tile.tile.value === 'paarai'">
+            <img class="rounded-image" src="../images/MoonLanding.png" alt="Rounded Image" />
+          </div>
+          <div class="rounded-image-container" v-else>
+            <img class="rounded-image" src="../images/BlueMoon.png" alt="Rounded Image" />
           </div>
           <ion-list>
-            <ion-item v-for="menuItem in menuItems" :key="menuItem.id" @click="handleItemClick(menuItem)">
+            <ion-item v-for="menuItem in filteredMenuItems" :key="menuItem.id" @click="handleItemClick(menuItem)">
               <ion-label style="cursor: pointer;">{{ menuItem.label }}</ion-label>
             </ion-item>
           </ion-list>
@@ -23,11 +26,14 @@
       </ion-menu>
       <ion-content id="main-content">
         <ChangePin v-if="isChangePin" />
-        <Profile v-if="isProfile"/>
+        <Profile :tile="tile" v-if="isProfile"/>
         <Weather v-if="isWeather"/>
-        <Members v-if="isMember"/>
+        <Members :tile="tile" v-if="isMember"/>
         <Events v-if="isEvent"/>
         <News v-if="isNews"/>
+        <Savings v-if="isSavings"/>
+        <Loan v-if="isLoan"/>
+        <GroupCost v-if="isGroupCost"/>
       </ion-content>
     </ion-page>
     <div v-if="showSpinner" class="spinner-container">
@@ -45,14 +51,18 @@
     import Members from './Members.vue';
     import Weather from './Weather.vue';
     import News from './News.vue';
+    import Savings from './Savings.vue';
+    import Loan from './Loan.vue';
+    import GroupCost from './GroupCost.vue';
     import { toastController } from '@ionic/vue';
     export default {
         name: "MenuLayout",
         props: {
           menuOptions: Array,
+          tile: Object,
         },
         components: {
-            ChangePin,Weather,Members,Events,News,
+            ChangePin,Weather,Members,Events,News,Savings, Loan, GroupCost,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -68,17 +78,36 @@
             isMember: false,
             isEvent: false,
             isNews: false,
+            isSavings: false,
+            isLoan: false,
+            isGroupCost: false,
             menuItems: [
                 { id: 1, label: "சுயவிவரம்", value: "Profile"},
                 { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
                 { id: 3, label: "PIN ஐ மாற்று", value: "ChangePin"},
                 // { id: 4, label: "நிகழ்வுகள்", value: "Event"},
-                { id: 5, label: "வானிலை", value: "Weather"},
-                { id: 6, label: "செய்திகள்", value: "News"},
-                { id: 7, label: "வெளியேறு", value: "Logout"},
-                { id: 7, label: "<--- முகப்பு பக்கம்", value: "HomePage"},
+                { id: 4, label: "வானிலை", value: "Weather"},
+                { id: 5, label: "செய்திகள்", value: "News"},
+                { id: 6, label: "சேமிப்பு தகவல்", value: "Savings"},
+                { id: 7, label: "கடன் தகவல்", value: "Loan"},
+                { id: 8, label: "குழு வரவு செலவு", value: "GroupCost"},
+                { id: 9, label: "வெளியேறு", value: "Logout"},
+                { id: 10, label: "Home Page", value: "HomePage"},
             ]
             };
+        },
+        computed: {
+          filteredMenuItems() {
+            return this.menuItems.filter(menuItem => {
+              if (this.tile.tile.value !== 'paarai' && (menuItem.value === 'News' || menuItem.value === 'Weather')) {
+                return false;
+              }
+              if (this.tile.tile.value == 'paarai' && (menuItem.value === 'GroupCost' || menuItem.value === 'Loan' || menuItem.value === 'Savings')) {
+                return false;
+              }
+              return true;
+            });
+          },
         },
         methods: {
           async displayToast(message, color) {
@@ -98,11 +127,18 @@
                 this.isMember = menuItem.value === "Member";
                 this.isEvent = menuItem.value === "Event";
                 this.isNews = menuItem.value === "News";
+                this.isSavings = menuItem.value === "Savings";
+                this.isLoan = menuItem.value === "Loan";
+                this.isGroupCost = menuItem.value === "GroupCost";
                 if(menuItem.value === "HomePage"){
                   window.location.reload();
                 }
                 if(menuItem.value === "Logout"){
-                  await this.$storage.set('PAARAI', '');
+                  if(this.tile.tile.value === 'paarai'){
+                    await this.$storage.set('PAARAI', '');
+                  } else {
+                    await this.$storage.set('GROUP', '');
+                  }
                   this.$emit('childEvent', 'logout');
                 }
                 const menu = document.querySelector('ion-menu');

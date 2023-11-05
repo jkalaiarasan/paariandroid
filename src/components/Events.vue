@@ -29,6 +29,7 @@
   
   <script>
   import axios from 'axios';
+  import { serverUrl } from '@/config.js';
   import { IonContent, IonIcon, IonSpinner } from "@ionic/vue";
   import { toastController } from '@ionic/vue';
   
@@ -59,7 +60,7 @@
         },
         async getEventList() {
             this.showSpinner = true;
-            const url =  'https://paaraiserver.vercel.app/getEventList' ; //'/getEventList';
+            const url =  serverUrl + '/getEventList' ;
             const data = {
                 token: await this.$storage.get('PAARAI'),
             };

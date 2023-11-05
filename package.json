@@ -22,9 +22,11 @@
     "@ionic/vue-router": "^7.0.0",
     "axios": "^1.4.0",
     "bootstrap-icons": "^1.10.5",
+    "html2pdf.js": "^0.10.1",
     "http-proxy-middleware": "^2.0.6",
     "vite-plugin-http2-proxy": "^0.4.1",
     "vue": "^3.2.45",
+    "vue-html2pdf": "^1.8.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

@@ -69,6 +69,7 @@
 
 
 <script>
+import { serverUrl } from '@/config.js';
 import {
   IonPage,
   IonHeader,
@@ -124,7 +125,7 @@ export default {
     async getToken(event) {
       event.preventDefault();
       this.showSpinner = true;
-      const url = 'https://paaraiserver.vercel.app/getToken';
+      const url = serverUrl + '/getToken';
       const data = {
         userName: this.username.toLowerCase(),
         pin: this.pin,

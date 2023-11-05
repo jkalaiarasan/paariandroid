@@ -3,11 +3,8 @@
       <TilePage v-if="showTile" @childEvent="handleTileClick" style="height: 100%;"/>
       <Login v-else-if="showLogin" :tile={tile} @childEvent="handleChildEvent" style="height: 100%;"/>
       <template v-else-if="isLogined">
-        <ion-content v-if="isPaarai">
-          <MainPage @childEvent="handleMainPageEvent"/>
-        </ion-content>
-        <ion-content v-if="isGroup">
-          <MainPage @childEvent="handleMainPageEvent"/>
+        <ion-content>
+          <MainPage :tile={tile} @childEvent="handleMainPageEvent"/>
         </ion-content>
     </template>
   </ion-app>
@@ -29,8 +26,6 @@ interface TileType {
 const showLogin = ref(false);
 const isLogined = ref(false);
 const showTile = ref(true);
-const isPaarai = ref(false);
-const isGroup = ref(false);
 const tile: TileType = {};
 import imagePath from './images/background.jpg';
 const backgroundStyle = computed(() => `background-image: url(${imagePath});`);
@@ -43,14 +38,8 @@ const handleChildEvent = (result) => {
 const handleTileClick = async (result) => {
   tile["value"] = result;  
   isLogined.value = false;
-  isPaarai.value = false;
-  isGroup.value = false;
   showTile.value = false;
-  if(result === 'paarai'){
-    isPaarai.value = true;
-    showLogin.value = true;
-  } else if(result === 'group'){
-    isGroup.value = true;
+  if(result === 'paarai' || result === 'group'){
     showLogin.value = true;
   } else {
     showLogin.value = false;
