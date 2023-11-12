@@ -27,25 +27,6 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          <ion-row @click="() => clickFunction('group')">
-            <ion-col size="12">
-              <ion-card class="full-width-tile">
-                <ion-row>
-                    <ion-col size="3" class="image">
-                        <img src="../images/BlueMoon.png" alt="Blue Moon Group"/>
-                    </ion-col>
-                    <ion-col size="9">
-                        <ion-card-header>
-                        <ion-card-title>ப்ளூ மூன் ஆண்கள் சுய உதவி குழு</ion-card-title>
-                        </ion-card-header>
-                        <ion-card-content>
-                            Optimize your savings and harness the power of resourceful financial management with us.
-                        </ion-card-content>
-                    </ion-col>
-                </ion-row>
-              </ion-card>
-            </ion-col>
-          </ion-row>
           <ion-row @click="() => clickFunction('tour')">
             <ion-col size="12">
               <ion-card class="full-width-tile">
