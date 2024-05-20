@@ -5,7 +5,7 @@
           <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
-          <ion-title>{{ pageTitle }}</ion-title>
+          <ion-title class="bold">{{ pageTitle }}</ion-title>
         </ion-toolbar>
       </ion-header>
       
@@ -19,7 +19,7 @@
           </div>
           <ion-list>
             <ion-item v-for="menuItem in filteredMenuItems" :key="menuItem.id" @click="handleItemClick(menuItem)">
-              <ion-label style="cursor: pointer;">{{ menuItem.label }}</ion-label>
+              <ion-label class="bold" style="cursor: pointer;">{{ menuItem.label }}</ion-label>
             </ion-item>
           </ion-list>
         </ion-content>
@@ -30,7 +30,7 @@
         <Weather v-if="isWeather"/>
         <Members :tile="tile" v-if="isMember"/>
         <Events v-if="isEvent"/>
-        <News v-if="isNews"/>
+        <Announcement v-if="isAnnouncement"/>
         <Savings v-if="isSavings"/>
         <Loan v-if="isLoan"/>
         <GroupCost v-if="isGroupCost"/>
@@ -50,7 +50,7 @@
     import Events from './Events.vue';
     import Members from './Members.vue';
     import Weather from './Weather.vue';
-    import News from './News.vue';
+    import Announcement from './Announcement.vue';
     import Savings from './Savings.vue';
     import Loan from './Loan.vue';
     import GroupCost from './GroupCost.vue';
@@ -62,7 +62,7 @@
           tile: Object,
         },
         components: {
-            ChangePin,Weather,Members,Events,News,Savings, Loan, GroupCost,
+            ChangePin,Weather,Members,Events,Announcement,Savings, Loan, GroupCost,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -77,7 +77,7 @@
             isWeather: false,
             isMember: false,
             isEvent: false,
-            isNews: false,
+            isAnnouncement: false,
             isSavings: false,
             isLoan: false,
             isGroupCost: false,
@@ -87,7 +87,7 @@
                 { id: 3, label: "PIN ஐ மாற்று", value: "ChangePin"},
                 // { id: 4, label: "நிகழ்வுகள்", value: "Event"},
                 { id: 4, label: "வானிலை", value: "Weather"},
-                { id: 5, label: "செய்திகள்", value: "News"},
+                { id: 5, label: "அறிவிப்புகள்", value: "Announcement"},
                 { id: 6, label: "சேமிப்பு தகவல்", value: "Savings"},
                 { id: 7, label: "கடன் தகவல்", value: "Loan"},
                 { id: 8, label: "குழு வரவு செலவு", value: "GroupCost"},
@@ -99,7 +99,7 @@
         computed: {
           filteredMenuItems() {
             return this.menuItems.filter(menuItem => {
-              if (this.tile.tile.value !== 'paarai' && (menuItem.value === 'News' || menuItem.value === 'Weather')) {
+              if (this.tile.tile.value !== 'paarai' && (menuItem.value === 'Announcement' || menuItem.value === 'Weather')) {
                 return false;
               }
               if (this.tile.tile.value == 'paarai' && (menuItem.value === 'GroupCost' || menuItem.value === 'Loan' || menuItem.value === 'Savings')) {
@@ -126,7 +126,7 @@
                 this.isWeather = menuItem.value === "Weather";
                 this.isMember = menuItem.value === "Member";
                 this.isEvent = menuItem.value === "Event";
-                this.isNews = menuItem.value === "News";
+                this.isAnnouncement = menuItem.value === "Announcement";
                 this.isSavings = menuItem.value === "Savings";
                 this.isLoan = menuItem.value === "Loan";
                 this.isGroupCost = menuItem.value === "GroupCost";
@@ -171,6 +171,10 @@
     bottom: 0;
     background: rgba(31, 27, 27, 0.8); /* This adds a semi-transparent background */
     z-index: 1000; /* This ensures the spinner is above everything else on the page */
+  }
+
+  .bold{
+    font-weight: bold;
   }
   </style>
   

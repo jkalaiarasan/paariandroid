@@ -8,7 +8,7 @@
           <ion-item-group>
             <ion-item-divider>
               <ion-label>
-                செய்திகள்
+                அறிவிப்புகள்
               </ion-label>
             </ion-item-divider>
             <ion-item v-for="(newsItem, index) in newsList" :key="index">
@@ -23,7 +23,7 @@
         <div>
             <ion-item-divider @click="toggleAccordion">
               <ion-label>
-                புதிய செய்தியை சேர்
+                புதிய அறிவிப்பை சேர்
               </ion-label>
             </ion-item-divider>
             <div class="add-news-content" :style="{ display: accordionOpen ? 'block' : 'none' }">
@@ -33,7 +33,7 @@
                     <ion-input required v-model="newNews.title"></ion-input>
                 </ion-item>
                 <ion-item>
-                    <ion-label>செய்தி</ion-label>
+                    <ion-label>அறிவிப்பு</ion-label>
                     <ion-textarea required v-model="newNews.description"></ion-textarea>
                 </ion-item>
                 <ion-button expand="full" type="submit">சேர்</ion-button>
@@ -108,7 +108,7 @@
                         'Content-Type': 'application/json',
                     },
                 });
-                this.displayToast('உங்கள் செய்தி மதிப்பாய்வுக்காக சமர்ப்பிக்கப்பட்டது, பரிசீலனைக்குப் பிறகு செய்தி வெளியிடப்படும்', 'success');
+                this.displayToast('உங்கள் அறிவிப்பு மதிப்பாய்வுக்காக சமர்ப்பிக்கப்பட்டது, பரிசீலனைக்குப் பிறகு செய்தி வெளியிடப்படும்', 'success');
                 this.showSpinner = false;
             } catch (error) {
                 this.showSpinner = false;

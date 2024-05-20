@@ -180,10 +180,12 @@
   .detail-label {
     font-size: 14px;
     opacity: 0.8;
+    font-weight: bold;
   }
   
   .detail-value {
     font-size: 16px;
+    font-weight: bold;
   }
   
   .edit-input {

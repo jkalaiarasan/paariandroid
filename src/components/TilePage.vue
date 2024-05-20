@@ -2,7 +2,7 @@
     <ion-page>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Ganesapuram</ion-title>
+          <ion-title class="bold">Ganesapuram</ion-title>
         </ion-toolbar>
       </ion-header>
   
@@ -17,9 +17,9 @@
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title>யுனிவர்சல் பாறை பாய்ஸ்</ion-card-title>
+                        <ion-card-title class="bold">யுனிவர்சல் பாறை பாய்ஸ்</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content>
+                        <ion-card-content class="bold">
                             Stay in touch with friends, check the weather, catch up on the latest news, and more!
                         </ion-card-content>
                     </ion-col>
@@ -36,9 +36,9 @@
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title>ப்ளூ மூன் ஹாலிடே & டூரிசம்</ion-card-title>
+                        <ion-card-title class="bold">ப்ளூ மூன் ஹாலிடே & டூரிசம்</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content>
+                        <ion-card-content class="bold">
                             Explore the World with Blue Moon
                         </ion-card-content>
                     </ion-col>
@@ -55,9 +55,9 @@
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title>நவீன் ஆடியோஸ்</ion-card-title>
+                        <ion-card-title class="bold">நவீன் ஆடியோஸ்</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content>
+                        <ion-card-content class="bold">
                             Explore the Function with Naveen Audios
                         </ion-card-content>
                     </ion-col>
@@ -74,9 +74,9 @@
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title>SMK Travels</ion-card-title>
+                        <ion-card-title class="bold">SMK Travels</ion-card-title>
                         </ion-card-header>
-                        <ion-card-content>
+                        <ion-card-content class="bold">
                             Explore the World with SMK Travels
                         </ion-card-content>
                     </ion-col>
@@ -120,6 +120,10 @@
     margin-bottom: 10px;
   }
   
+  .bold{
+    font-weight: bold;
+  }
+
   .tile:hover {
     transform: translateY(-5px);
   }
