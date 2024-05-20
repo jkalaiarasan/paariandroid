@@ -46,6 +46,44 @@
               </ion-card>
             </ion-col>
           </ion-row>
+          <ion-row @click="() => clickFunction('tour')">
+            <ion-col size="12">
+              <ion-card class="full-width-tile">
+                <ion-row>
+                    <ion-col size="3" class="image">
+                        <img src="../images/Speaker.png" alt="Blue Moon Holiday & Tourism"/>
+                    </ion-col>
+                    <ion-col size="9">
+                        <ion-card-header>
+                        <ion-card-title>நவீன் ஆடியோஸ்</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            Explore the Function with Naveen Audios
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          <ion-row @click="() => clickFunction('tour')">
+            <ion-col size="12">
+              <ion-card class="full-width-tile">
+                <ion-row>
+                    <ion-col size="3" class="image">
+                        <img src="../images/Bus.png" alt="Blue Moon Holiday & Tourism"/>
+                    </ion-col>
+                    <ion-col size="9">
+                        <ion-card-header>
+                        <ion-card-title>SMK Travels</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            Explore the World with SMK Travels
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+              </ion-card>
+            </ion-col>
+          </ion-row>
         </ion-grid>
       </ion-content>
     </ion-page>
