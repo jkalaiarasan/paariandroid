@@ -2,7 +2,7 @@
     <ion-page>
       <ion-header>
         <ion-toolbar>
-          <ion-title>Universal Paarai Boys</ion-title>
+          <ion-title>Ganesapuram</ion-title>
         </ion-toolbar>
       </ion-header>
   
