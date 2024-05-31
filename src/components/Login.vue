@@ -138,6 +138,7 @@ export default {
           },
         });
         const responseData = response.data;
+        console.log('responseData ', JSON.stringify(responseData));
         this.showSpinner = false;
         if (!responseData.isError) {
           this.displayToast('Welcome ' + responseData.Name, 'success');

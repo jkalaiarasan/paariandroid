@@ -1,5 +1,5 @@
 <template>
-  <ion-app :style="backgroundStyle">
+  <ion-app>
       <TilePage v-if="showTile" @childEvent="handleTileClick" style="height: 100%;"/>
       <Login v-else-if="showLogin" :tile={tile} @childEvent="handleChildEvent" style="height: 100%;"/>
       <template v-else-if="isLogined">
@@ -27,8 +27,6 @@ const showLogin = ref(false);
 const isLogined = ref(false);
 const showTile = ref(true);
 const tile: TileType = {};
-import imagePath from './images/background.jpg';
-const backgroundStyle = computed(() => `background-image: url(${imagePath});`);
 
 const handleChildEvent = (result) => {
   showLogin.value = false;

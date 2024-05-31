@@ -32,8 +32,6 @@
         <Events v-if="isEvent"/>
         <Announcement v-if="isAnnouncement"/>
         <Savings v-if="isSavings"/>
-        <Loan v-if="isLoan"/>
-        <GroupCost v-if="isGroupCost"/>
       </ion-content>
     </ion-page>
     <div v-if="showSpinner" class="spinner-container">
@@ -52,8 +50,6 @@
     import Weather from './Weather.vue';
     import Announcement from './Announcement.vue';
     import Savings from './Savings.vue';
-    import Loan from './Loan.vue';
-    import GroupCost from './GroupCost.vue';
     import { toastController } from '@ionic/vue';
     export default {
         name: "MenuLayout",
@@ -62,7 +58,7 @@
           tile: Object,
         },
         components: {
-            ChangePin,Weather,Members,Events,Announcement,Savings, Loan, GroupCost,
+            ChangePin,Weather,Members,Events,Announcement,Savings,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -79,8 +75,6 @@
             isEvent: false,
             isAnnouncement: false,
             isSavings: false,
-            isLoan: false,
-            isGroupCost: false,
             menuItems: [
                 { id: 1, label: "சுயவிவரம்", value: "Profile"},
                 { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
@@ -88,9 +82,6 @@
                 // { id: 4, label: "நிகழ்வுகள்", value: "Event"},
                 { id: 4, label: "வானிலை", value: "Weather"},
                 { id: 5, label: "அறிவிப்புகள்", value: "Announcement"},
-                { id: 6, label: "சேமிப்பு தகவல்", value: "Savings"},
-                { id: 7, label: "கடன் தகவல்", value: "Loan"},
-                { id: 8, label: "குழு வரவு செலவு", value: "GroupCost"},
                 { id: 9, label: "வெளியேறு", value: "Logout"},
                 { id: 10, label: "Home Page", value: "HomePage"},
             ]
@@ -128,8 +119,6 @@
                 this.isEvent = menuItem.value === "Event";
                 this.isAnnouncement = menuItem.value === "Announcement";
                 this.isSavings = menuItem.value === "Savings";
-                this.isLoan = menuItem.value === "Loan";
-                this.isGroupCost = menuItem.value === "GroupCost";
                 if(menuItem.value === "HomePage"){
                   window.location.reload();
                 }

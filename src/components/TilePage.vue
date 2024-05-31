@@ -55,10 +55,10 @@
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title class="bold">நவீன் ஆடியோஸ்</ion-card-title>
+                        <ion-card-title class="bold">Jack Sparrow Audios</ion-card-title>
                         </ion-card-header>
                         <ion-card-content class="bold">
-                            Explore the Function with Naveen Audios
+                            Explore the Function with Jack Sparrow Audios
                         </ion-card-content>
                     </ion-col>
                 </ion-row>
@@ -93,10 +93,10 @@
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title class="bold">SMK Travels</ion-card-title>
+                        <ion-card-title class="bold">MKS Travels</ion-card-title>
                         </ion-card-header>
                         <ion-card-content class="bold">
-                            Explore the World with SMK Travels
+                            Explore the World with MKS Travels
                         </ion-card-content>
                     </ion-col>
                 </ion-row>
