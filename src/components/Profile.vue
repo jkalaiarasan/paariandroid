@@ -3,7 +3,6 @@
       <ion-spinner name="lines-small" style="width: 100px; height: 100px;"></ion-spinner>
     </div>
     <div v-else class="profile">
-      <template v-if="tile.tile.value === 'paarai'">
         <div class="profile-header">
           <img class="profile-picture" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyjqSxk-RexzyuP1TktCvHsA4XJMrRF7mPWeSs_No_IZArOpDg2P_4psKYSzOBBXyKhXF-kt-1r0pTxTTTtUp1IHDfmsL8gTYC2lpVPt6rC0mKI0h7xwOjxKxm2ha6STRKyE47PeDSWuoNQ_e_FQeM9ybAd4WHNnxL_wWC-G6a5zDj2KdLMoxsjZ63DSs/w552-h320/main.png" alt="Profile Picture" />
         </div>
@@ -37,34 +36,6 @@
             <div class="detail-value">{{ memberData.Phone_Number__c }}</div>
           </div>
         </div>
-      </template>
-      <template v-else>
-        <div class="profile-header">
-          <img class="profile-picture" src="../images/BlueMoon.png" alt="Profile Picture" />
-        </div>
-        <div class="profile-details">
-          <div class="detail">
-            <h2 class="detail-label">பெயர்</h2>
-            <div class="detail-value">{{ memberData.Name }}</div>
-          </div>
-          <div class="detail">
-            <h2 class="detail-label">பதிவு எண்</h2>
-            <div class="detail-value">{{ memberData.Member_Id__c }}</div>
-          </div>
-          <div class="detail">
-            <h2 class="detail-label">பொறுப்பு</h2>
-            <div class="detail-value">{{ memberData.Position__c }}</div>
-          </div>
-          <div class="detail">
-            <h2 class="detail-label">முகவரி</h2>
-            <div class="detail-value">{{ memberData.Address__c }}</div>
-          </div>
-          <div class="detail">
-            <h2 class="detail-label">செல் எண்</h2>
-            <div class="detail-value">{{ memberData.Mobile__c }}</div>
-          </div>
-        </div>
-      </template>
     </div>
   </template>
   
