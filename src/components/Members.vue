@@ -10,9 +10,9 @@
                   <ion-row>
                     <ion-col size="3">
                       <div class="image-container">
-                        <ion-avatar>
-                          <ion-img :src="user.profileImage" alt="User Avatar"></ion-img>
-                        </ion-avatar>
+                        <div class="profile-picture">
+                          {{ user.first }}
+                        </div>
                       </div>
                     </ion-col>
                     <ion-col size="9">
@@ -96,13 +96,14 @@ export default {
             'Content-Type': 'application/json',
           },
         });
+        console.log('response ', response);
         response?.data?.data.forEach(element => {
           let userName = element.Username__c ? element.Username__c : element.Name;
           this.users.push({
             name: element.Name,
-            id: this.tile.tile.value === 'paarai' ? element.Paarai_Id__c : element.Member_Id__c,
-            username: this.tile.tile.value === 'paarai' ? '@' + userName : element.Position__c,
-            profileImage: "https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png",
+            first: element.Name.charAt(0).toUpperCase(),
+            id: element.Paarai_Id__c,
+            username: '@' + userName,
             bio: element.Work__c,
             location: element.Location__c,
           });
@@ -119,7 +120,18 @@ export default {
 </script>
 
 <style scoped>
-
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #606162;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  font-weight: bold;
+}
 .image-container {
   display: flex;
   align-items: center;

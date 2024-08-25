@@ -11,14 +11,12 @@
       
       <ion-menu content-id="main-content">
         <ion-content>
-          <div class="rounded-image-container" v-if="tile.tile.value === 'paarai'">
-            <img class="rounded-image" src="../images/MoonLanding.png" alt="Rounded Image" />
-          </div>
-          <div class="rounded-image-container" v-else>
-            <img class="rounded-image" src="../images/BlueMoon.png" alt="Rounded Image" />
+          <div class="rounded-image-container">
+            <img class="rounded-image" src="../images/Logo.png" alt="Rounded Image" />
           </div>
           <ion-list>
             <ion-item v-for="menuItem in filteredMenuItems" :key="menuItem.id" @click="handleItemClick(menuItem)">
+              <i :class="menuItem.iconClass" style="margin-right: 10px;"></i>
               <ion-label class="bold" style="cursor: pointer;">{{ menuItem.label }}</ion-label>
             </ion-item>
           </ion-list>
@@ -30,6 +28,7 @@
         <Weather v-if="isWeather"/>
         <Members :tile="tile" v-if="isMember"/>
         <Events v-if="isEvent"/>
+        <Enquiry v-if="isEnquiry"/>
         <Announcement v-if="isAnnouncement"/>
         <Savings v-if="isSavings"/>
       </ion-content>
@@ -47,6 +46,7 @@
     import Profile from './Profile.vue';
     import Events from './Events.vue';
     import Members from './Members.vue';
+    import Enquiry from './Enquiry.vue';
     import Weather from './Weather.vue';
     import Announcement from './Announcement.vue';
     import Savings from './Savings.vue';
@@ -58,7 +58,7 @@
           tile: Object,
         },
         components: {
-            ChangePin,Weather,Members,Events,Announcement,Savings,
+            ChangePin,Weather,Members,Events,Announcement,Savings,Enquiry,
             Profile,IonLabel, IonItem,
             IonSpinner,IonButtons,IonTitle,IonToolbar,IonHeader,
             IonPage,IonMenu, IonContent,IonList,IonMenuButton,
@@ -68,6 +68,7 @@
             pageTitle: "சுயவிவரம்",
             isChangePin: false,
             isProfile: true,
+            isEnquiry: false,
             showSpinner: false,
             memberDetail: Object,
             isWeather: false,
@@ -76,14 +77,15 @@
             isAnnouncement: false,
             isSavings: false,
             menuItems: [
-                { id: 1, label: "சுயவிவரம்", value: "Profile"},
-                { id: 2, label: "உறுப்பினர்கள்", value: "Member"},
-                { id: 3, label: "PIN ஐ மாற்று", value: "ChangePin"},
-                // { id: 4, label: "நிகழ்வுகள்", value: "Event"},
-                { id: 4, label: "வானிலை", value: "Weather"},
-                { id: 5, label: "அறிவிப்புகள்", value: "Announcement"},
-                { id: 9, label: "வெளியேறு", value: "Logout"},
-                { id: 10, label: "Home Page", value: "HomePage"},
+                { id: 1, label: "சுயவிவரம்", value: "Profile", iconClass: "bi bi-person"},
+                { id: 2, label: "உறுப்பினர்கள்", value: "Member", iconClass : "bi bi-people"},
+                // { id: 3, label: "PIN ஐ மாற்று", value: "ChangePin", disabled: true},
+                { id: 4, label: "வானிலை", value: "Weather", iconClass: "bi bi-cloud-drizzle-fill"},
+                { id: 5, label: "அறிவிப்புகள்", value: "Announcement", iconClass: "bi bi-megaphone"},
+                { id: 5, label: "விசாரணைகள்", value: "Enquiries", iconClass : "bi bi-basket"},
+                { id: 12, label: "நிகழ்வுகள்", value: "Event", iconClass: "bi bi-calendar-event"},
+                { id: 9, label: "வெளியேறு", value: "Logout", iconClass: "bi bi-box-arrow-right"},
+                { id: 10, label: "Home Page", value: "HomePage", iconClass: "bi bi-house-door-fill"},
             ]
             };
         },
@@ -118,6 +120,7 @@
                 this.isMember = menuItem.value === "Member";
                 this.isEvent = menuItem.value === "Event";
                 this.isAnnouncement = menuItem.value === "Announcement";
+                this.isEnquiry = menuItem.value === "Enquiries";
                 this.isSavings = menuItem.value === "Savings";
                 if(menuItem.value === "HomePage"){
                   window.location.reload();

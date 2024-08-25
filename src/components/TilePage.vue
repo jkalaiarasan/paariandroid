@@ -51,25 +51,6 @@
               <ion-card class="full-width-tile">
                 <ion-row>
                     <ion-col size="3" class="image">
-                        <img src="../images/Speaker.png" alt="Blue Moon Holiday & Tourism"/>
-                    </ion-col>
-                    <ion-col size="9">
-                        <ion-card-header>
-                        <ion-card-title class="bold">Jack Sparrow Audios</ion-card-title>
-                        </ion-card-header>
-                        <ion-card-content class="bold">
-                            Explore the Function with Jack Sparrow Audios
-                        </ion-card-content>
-                    </ion-col>
-                </ion-row>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-          <ion-row @click="() => clickFunction('tour')">
-            <ion-col size="12">
-              <ion-card class="full-width-tile">
-                <ion-row>
-                    <ion-col size="3" class="image">
                         <img src="../images/Photo.png" alt="Blue Moon Holiday & Tourism"/>
                     </ion-col>
                     <ion-col size="9">
@@ -78,25 +59,6 @@
                         </ion-card-header>
                         <ion-card-content class="bold">
                             Explore the Nature with Gokul's Photo Graphi
-                        </ion-card-content>
-                    </ion-col>
-                </ion-row>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-          <ion-row @click="() => clickFunction('tour')">
-            <ion-col size="12">
-              <ion-card class="full-width-tile">
-                <ion-row>
-                    <ion-col size="3" class="image">
-                        <img src="../images/Bus.png" alt="Blue Moon Holiday & Tourism"/>
-                    </ion-col>
-                    <ion-col size="9">
-                        <ion-card-header>
-                        <ion-card-title class="bold">MKS Travels</ion-card-title>
-                        </ion-card-header>
-                        <ion-card-content class="bold">
-                            Explore the World with MKS Travels
                         </ion-card-content>
                     </ion-col>
                 </ion-row>
