@@ -24,6 +24,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.10.5",
+    "firebase": "^10.14.0",
     "html2pdf.js": "^0.10.1",
     "http-proxy-middleware": "^2.0.6",
     "vite-plugin-http2-proxy": "^0.4.1",

@@ -100,6 +100,7 @@ export default {
   },
   props: {
     tile: Object,
+    deviceToken: String,
   },
   data() {
     return {
@@ -130,6 +131,7 @@ export default {
         userName: this.username.toLowerCase(),
         pin: this.pin,
         isPaarai : this.tile.tile.value === 'paarai',
+        deviceToken: this.deviceToken.deviceToken
       };
       try {
         const response = await axios.post(url, data, {

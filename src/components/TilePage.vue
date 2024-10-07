@@ -46,19 +46,19 @@
               </ion-card>
             </ion-col>
           </ion-row>
-          <ion-row @click="() => clickFunction('tour')">
+          <ion-row @click="() => clickFunction('festival')">
             <ion-col size="12">
               <ion-card class="full-width-tile">
                 <ion-row>
                     <ion-col size="3" class="image">
-                        <img src="../images/Photo.png" alt="Blue Moon Holiday & Tourism"/>
+                        <img src="../images/Festival.png" alt="Festivals"/>
                     </ion-col>
                     <ion-col size="9">
                         <ion-card-header>
-                        <ion-card-title class="bold">Gokul's Photo Graphi</ion-card-title>
+                        <ion-card-title class="bold">Festivals</ion-card-title>
                         </ion-card-header>
                         <ion-card-content class="bold">
-                            Explore the Nature with Gokul's Photo Graphi
+                          Explore vibrant festivals and celebrate the spirit of togetherness!
                         </ion-card-content>
                     </ion-col>
                 </ion-row>
