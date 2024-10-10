@@ -71,6 +71,21 @@
   </template>
   
   <script>
+    import {
+      IonApp,
+      IonContent,
+      IonHeader,
+      IonToolbar,
+      IonTitle,
+      IonPage,
+      IonGrid,
+      IonRow,
+      IonCol,
+      IonCard,
+      IonCardHeader,
+      IonCardTitle,
+      IonCardContent
+  } from '@ionic/vue';
     export default {
         name: "StylishTiles",
         methods: {

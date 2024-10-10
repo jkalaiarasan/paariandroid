@@ -16,24 +16,27 @@
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 const firebaseConfig = {
-  apiKey: "AIzaSyD4U1QPW0NcBmoBJPM8EIP5h_lyH8yG1i4",
-  authDomain: "mobile-push-d5660.firebaseapp.com",
-  projectId: "mobile-push-d5660",
-  storageBucket: "mobile-push-d5660.appspot.com",
-  messagingSenderId: "564820865810",
-  appId: "1:564820865810:web:1adf81f8af27ca4f3e39cb",
-  measurementId: "G-QMKG88Z4HF"
+  apiKey: "AIzaSyAvt7mKOCUAOQAAyGOfzDHiJueweWDXu2s",
+  authDomain: "ganesapuram-1458a.firebaseapp.com",
+  projectId: "ganesapuram-1458a",
+  storageBucket: "ganesapuram-1458a.appspot.com",
+  messagingSenderId: "1014758642776",
+  appId: "1:1014758642776:web:78d4d0c70fc0cf8766e62d",
+  measurementId: "G-QP4Q709XGE"
 };
+
+import '@ionic/vue/css/core.css';
+import '@ionic/vue/css/ionic.bundle.css';
 
 const app = initializeApp(firebaseConfig);
 
-const messaging = getMessaging();
+const messaging = getMessaging(app);
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
   // ...
 });
 
-getToken(messaging, { vapidKey: 'BKgfF-V0kzfTaG5d7UIKM3pu5MolPlkJqkGCdXRyJmjDsClkmJ6exuewi9EpnY-6b49rQ9AwtDc_8wVW7kHAi80' }).then((currentToken) => {
+getToken(messaging, { vapidKey: 'BN9ba1kHSmoNW4fXiyrukegXD82PwsSNPCcgqS97iFlzLrTI8V2odKqTWiVaBnJPJwiZCmJhM886kwS3Mp4au9g' }).then((currentToken) => {
   if (currentToken) {
     console.log('currentToken ', currentToken)
     deviceToken.value = currentToken;
